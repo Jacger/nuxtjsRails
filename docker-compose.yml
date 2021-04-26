@@ -1,0 +1,38 @@
+version: '3.1'
+
+services:
+  # db:
+  #   image: postgres:9.4
+  #   environment:
+  #     POSTGRES_USER: pguser
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: myapp
+  #   ports:
+  #     - 5432:5432
+  #   volumes:
+  #     - ./dump:/docker-entrypoint-initdb.d
+
+  frontend:
+    tty: true
+    stdin_open: true
+    build: ./docker/frontend
+    # links:
+    #   - backend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/app:cached
+
+  # backend:
+  #   tty: true
+  #   stdin_open: true
+  #   command: sh ./docker/app/docker-entrypoint.sh
+  #   build: ./docker/backend
+  #   links:
+  #     - db
+  #   volumes:
+  #     - ./backend:/app:cached
+  #     - bundle_cache:/app/vendor/bundle
+
+volumes:
+  bundle_cache:
