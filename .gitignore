@@ -33,3 +33,5 @@
 /frontend/sw.*
 /frontend/.DS_Store
 /frontend/*.swp
+
+/docker/nginx/log

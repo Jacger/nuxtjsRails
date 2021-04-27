@@ -1,4 +1,3 @@
-
 FROM node:latest
 
 # Create app directory
@@ -9,7 +8,4 @@ ADD . /app/
 RUN npm i npm && npm i yarn
 
 ENV HOST 0.0.0.0
-# EXPOSE 3000
-
-# start command
-CMD [ "yarn", "dev" ]
+EXPOSE 3000

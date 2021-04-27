@@ -18,10 +18,24 @@ services:
     build: ./docker/frontend
     # links:
     #   - backend
-    ports:
-      - 3000:3000
     volumes:
       - ./frontend:/app:cached
+    command: ["yarn", "dev"]
+    networks:
+      - app_network
+
+  nginx:
+    depends_on:
+      - frontend
+    image: nginx:alpine
+    ports:
+      - 80:80
+    restart: unless-stopped
+    volumes:
+      - ./docker/nginx/log:/var/log/nginx
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - app_network
 
   # backend:
   #   tty: true
@@ -34,5 +48,8 @@ services:
   #     - ./backend:/app:cached
   #     - bundle_cache:/app/vendor/bundle
 
-volumes:
-  bundle_cache:
+# volumes:
+#   bundle_cache:
+networks:
+  app_network:
+    driver: bridge
